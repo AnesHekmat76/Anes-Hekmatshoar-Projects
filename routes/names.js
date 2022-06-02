@@ -18,9 +18,8 @@ router.get("/:name", async function (req, res, next) {
     definitionsArray.length === 0
   ) {
     res.status(404);
-    res.send('Not Found');
+    res.send('There is no information with this name');
   } else {
-    console.log("here");
     let nameInformation = {
       name: req.params.name,
       gender: genderResponse.gender,
