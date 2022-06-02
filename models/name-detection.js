@@ -20,30 +20,35 @@ async function getNationality(name) {
 }
 
 async function getDefinition(name) {
-  try {
-    const response = await axios.get(
-      `https://api.urbandictionary.com/v0/define?term=${name}`
-    );
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-  //   let definition = response.data.list.map((item) => {
-  //     return definition;
-  //     // definition is an array
-  //   });
-  //   return response.data.list;
+    try {
+      const response = await axios.get(
+        `https://api.urbandictionary.com/v0/define?term=${name}`
+      );
+      let definitionsArray = response.data.list.map((item) => {
+        return item.definition;
+      });
+      return definitionsArray;
+    } catch (error) {
+      console.log(error);
+      return error;
+    };
+
+
+
+
 }
 
 module.exports = {
   nameDetection: async (name) => {
-    //console.log(typeof(name))
     let gender = await getGender(name);
     let country = await getNationality(name);
-    let definitions = await getDefinition(name);
-    console.log(definitions);
+    let definitions = await getDefinition(name) ;
+    let nameInformation = {
+      name: name,
+      gender: gender,
+      country_id: country,
+      definitions: definitions,
+    };
+    return nameInformation;
   },
 };
-
-const url = "https://api.urbandictionary.com/v0/define?term=shamim";
-const url2 = "https://api.nationalize.io/?name=shamim";

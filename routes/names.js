@@ -1,19 +1,18 @@
 var express = require("express");
+const { status } = require("express/lib/response");
 var router = express.Router();
 var nameDetection = require("../models/name-detection");
 
 /* GET users listing. */
 router.get("/:name", function (req, res, next) {
-  // async function getGender() {
-  //   result = await nameDetection.getGender(req.params.name);
-  //   res.json(result);
-  // }
-  // getGender();
-
-  nameDetection.nameDetection(req.params.name);
-  //console.log(new nameDetection)
-  //console.log(result);
-  res.send("ok");
+  async function getResult() {
+    console.log('called');
+    result = await nameDetection.nameDetection(req.params.name);
+    console.log(result);
+    res.status(200);
+    res.json(result);
+  }
+  getResult();
 });
 
 module.exports = router;
