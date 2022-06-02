@@ -20,29 +20,25 @@ async function getNationality(name) {
 }
 
 async function getDefinition(name) {
-    try {
-      const response = await axios.get(
-        `https://api.urbandictionary.com/v0/define?term=${name}`
-      );
-      let definitionsArray = response.data.list.map((item) => {
-        return item.definition;
-      });
-      return definitionsArray;
-    } catch (error) {
-      console.log(error);
-      return error;
-    };
-
-
-
-
+  try {
+    const response = await axios.get(
+      `https://api.urbandictionary.com/v0/define?term=${name}`
+    );
+    let definitionsArray = response.data.list.map((item) => {
+      return item.definition;
+    });
+    return definitionsArray;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 }
 
 module.exports = {
   nameDetection: async (name) => {
     let gender = await getGender(name);
     let country = await getNationality(name);
-    let definitions = await getDefinition(name) ;
+    let definitions = await getDefinition(name);
     let nameInformation = {
       name: name,
       gender: gender,
